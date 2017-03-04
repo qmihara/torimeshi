@@ -22,7 +22,10 @@ router.post("/") { request, response, next in
             next()
             return
         }
+
         print("event:\(pullRequestReviewEvent)")
+        Slack.postMessage("\(pullRequestReviewEvent.review.state.emoji) \(pullRequestReviewEvent.review.state.text)")
+
         response.send("Successful!!")
         next()
     default:

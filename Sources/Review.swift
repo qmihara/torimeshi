@@ -7,6 +7,28 @@ struct Review: JSONDecodable {
         case commented = "commented"
         case changesRequested = "changes_requested"
         case approved = "approved"
+
+        var text: String {
+            switch self {
+            case .commented:
+                return "Commented"
+            case .changesRequested:
+                return "Requested changes"
+            case .approved:
+                return "Approved"
+            }
+        }
+
+        var emoji: String {
+            switch self {
+            case .commented:
+                return ":speech_balloon:"
+            case .changesRequested:
+                return ":pray:"
+            case .approved:
+                return ":tada:"
+            }
+        }
     }
 
     var state: State
