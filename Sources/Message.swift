@@ -8,7 +8,9 @@ struct Message {
         let review = event.review
         var text = "[\(event.repository.fullName)] \(review.state.emoji) \(review.state.text) by \(review.user.login) on pull request \(review.htmlURL)"
         if let body = event.review.body, !body.isEmpty {
+            print("start appending body ======>")
             text += "\n"
+            print("added line break")
             let carriageReturnRemovedBody = body.replacingOccurrences(of: "\r", with: "")
             print("carriageReturnRemovedBody:\(carriageReturnRemovedBody)")
             let splitedBody = carriageReturnRemovedBody.components(separatedBy: "\n")
