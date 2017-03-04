@@ -12,7 +12,7 @@ struct PullRequestReviewEvent: JSONDecodable {
         self.review = review
 
         guard let pullRequestDictionary = json["pull_request"]?.dictionary, let pullRequest = PullRequest(json: pullRequestDictionary) else { return nil }
-        self.pulRequest = pullRequest
+        self.pullRequest = pullRequest
 
         guard let repositoryDictionary = json["repository"]?.dictionary, let repository = Repository(json: repositoryDictionary) else { return nil }
         self.repository = repository
