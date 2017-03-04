@@ -34,7 +34,7 @@ struct Review: JSONDecodable {
     var state: State
     var body: String?
     var user: User
-    var htmlURL: URL
+    var htmlURL: String
 
     init?(json: [String: JSON]) {
         guard let stateValue = json["state"]?.string, let state = State(rawValue: stateValue) else { return nil }
@@ -45,7 +45,7 @@ struct Review: JSONDecodable {
         guard let userDictionary = json["user"]?.dictionary, let user = User(json: userDictionary) else { return nil }
         self.user = user
 
-        guard let htmlURLValue = json["html_url"]?.string, let htmlURL = URL(string: htmlURLValue) else { return nil }
+        guard let htmlURL = json["html_url"]?.string else { return nil }
         self.htmlURL = htmlURL
     }
 }
