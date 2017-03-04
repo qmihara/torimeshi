@@ -11,9 +11,9 @@ struct Message {
             print("start appending body ======>")
             text += "\n"
             print("added line break")
-            let carriageReturnRemovedBody = body.replacingOccurrences(of: "\r", with: "")
-            print("carriageReturnRemovedBody:\(carriageReturnRemovedBody)")
-            let splitedBody = carriageReturnRemovedBody.components(separatedBy: "\n")
+//            let carriageReturnRemovedBody = body.replacingOccurrences(of: "\r", with: "")
+//            print("carriageReturnRemovedBody:\(carriageReturnRemovedBody)")
+            let splitedBody = body.components(separatedBy: "\r\n")
             print("splitedBody:\(splitedBody)")
             let quotedBody = splitedBody.map { "> \($0)" }
             print("quotedBody:\(quotedBody)")
