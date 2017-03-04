@@ -4,6 +4,8 @@ import LoggerAPI
 struct Slack {
 
     static func postMessage(_ text: String) {
+        Log.info("post message: \(text)")
+
         guard let url = ProcessInfo.processInfo.environment["SLACK_INCOMING_WEBHOOK_URL"] else {
             Log.warning("Slack incoming webhook url not found. Please set up SLACK_INCOMING_WEBHOOK_URL.")
             return

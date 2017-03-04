@@ -24,7 +24,7 @@ router.post("/") { request, response, next in
         }
 
         print("event:\(pullRequestReviewEvent)")
-        Slack.postMessage("\(pullRequestReviewEvent.review.state.emoji) \(pullRequestReviewEvent.review.state.text)")
+        Slack.postMessage(Message(event: pullRequestReviewEvent).text)
 
         response.send("Successful!!")
         next()
