@@ -32,7 +32,7 @@ struct Review: JSONDecodable {
     }
 
     var state: State
-    var body: String?
+    var body: String
     var user: User
     var htmlURL: String
 
@@ -40,7 +40,8 @@ struct Review: JSONDecodable {
         guard let stateValue = json["state"]?.string, let state = State(rawValue: stateValue) else { return nil }
         self.state = state
 
-        body = json["body"]?.string
+        guard let body = json["body"]?.string else { return nil }
+        self.body = body
 
         guard let userDictionary = json["user"]?.dictionary, let user = User(json: userDictionary) else { return nil }
         self.user = user
