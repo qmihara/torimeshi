@@ -1,27 +1,29 @@
 import Foundation
 import Kitura
 import HeliumLogger
+import LoggerAPI
 import SwiftyJSON
 
-HeliumLogger.use()
+let logLevel: Int = Int(ProcessInfo.processInfo.environment["LOG_LEVEL"] ?? "4") ?? 4 // 4 is verbose
+HeliumLogger.use(LoggerMessageType(rawValue: logLevel) ?? .verbose)
 
 let router = Router()
 
 router.post("/") { request, response, next in
     guard let requestBody = try request.readString() else {
-        print("No body.")
+        Log.info("No body.")
         next()
         return
     }
 
     guard let signature = request.headers["X-Hub-Signature"] else {
-        print("Signature is nil")
+        Log.info("Signature is nil")
         next()
         return
     }
 
     if !Signature.veriry(withSignature: signature, requestBody: requestBody) {
-        print("Signature verify failed.")
+        Log.warning("Signature verify failed.")
         next()
         return
     }
@@ -33,7 +35,7 @@ router.post("/") { request, response, next in
         return
     }
 
-    print("event:\(pullRequestReviewEvent)")
+    Log.debug("event:\(pullRequestReviewEvent)")
     Slack.postMessage(Message(event: pullRequestReviewEvent).text)
 
     response.send("Successful!!")

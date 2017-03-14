@@ -1,6 +1,7 @@
 import Foundation
 import Kitura
 import Cryptor
+import LoggerAPI
 
 extension HMAC.Algorithm {
 
@@ -37,8 +38,8 @@ class Signature {
         let data = CryptoUtils.byteArray(from: requestBody)
         guard let hmac = HMAC(using: algorithm, key: key).update(byteArray: data)?.final() else { return false }
 
-        print("signature:\(pair[1])")
-        print("generated:\(CryptoUtils.hexString(from: hmac))")
+        Log.debug("signature:\(pair[1])")
+        Log.debug("generated:\(CryptoUtils.hexString(from: hmac))")
         return CryptoUtils.hexString(from: hmac) == pair[1]
     }
 }
